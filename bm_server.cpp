@@ -30,6 +30,7 @@ time_t t;
 static int j = 0;
 int recv_count = 0;
 int* client_sock;
+SOCKET client_socket_final;
 /* Start BUSMASTER Function Prototype  */
 GCC_EXTERN void GCC_EXPORT OnTimer_timer_100ms_100();
 GCC_EXTERN void GCC_EXPORT OnMsgID_101(STCAN_MSG RxMsg);
@@ -85,19 +86,13 @@ void *testCalculate(void *arg)
 {
   
   cout << "in test calculate";
-  Trace("in test calculate");
-  //int *client_sockp = (int *)(arg);
+  Trace("in test calculate ");
   int sock = *((int *) arg);
-  client_sock = (int * )arg;
-  //delete client_sockp;
-  //Trace("\n client_sockp is %d",client_sockp);
-  //char* recvdata[1024];
-  float recv_array[3];
+  Trace("sock = %d",sock);
+  Trace("client_socket_final = %d",client_socket_final);
+   float recv_array[3];
   int i = 0;
   //Receive array of arguments one by one over TCP socket
-  //char *recv_data;
-  // long *recv_data;
-  //  recv_data =  (long *) malloc((1024 + 1) * sizeof(long));
   long recv_data[3];
   int recv_size;
   uint32_t arr_size = 0;
@@ -114,20 +109,10 @@ void *testCalculate(void *arg)
   }
   else
     Trace("recv failed:%d \n", WSAGetLastError());
- // if( send(sock, (char*)recv_data, sizeof(recv_data), 0) == SOCKET_ERROR) 
- //    {
- //        Trace("send failed");
- //    }
-Trace("sock = %d",sock);
-Trace("client_sock = %d",*client_sock);
   for(int i =0;i<3;i++){
   recv_array[i] = (float)ntohf(recv_data[i]);
   }
-  //long temp =  ntohl((*recv_data));
-  //double temp =  ntohf(*recv_data);
-  //recv_array =  *((reinterpret_cast<double*>(&temp)));
-  //recv_array =  (double)temp;
-  // Trace("\n Received data is %d",recv_data);
+
   Trace("\nDeserialized data is %f %f %f", recv_array[0], recv_array[1], recv_array[2]);
   Trace("\nDeserialized data is %f", recv_array);
   std::clock_t c_start = std::clock();
@@ -149,21 +134,12 @@ Trace("client_sock = %d",*client_sock);
   memcpy(&sMsgStruct.data, &recv_array[2], sizeof(float));
   Trace("1. sending third val to bmnode1");
   SendMsg(sMsgStruct);
-  //Send data to function to calculate
-  // double result = compute(recv_array);
-  // cout << "Result obtained ...";
-  // cout << "Sending result back to Autoware over the network";
-  // if (send(sock, (char *)&result, 1000, 0) < 0)
-  //   cout << "Error\n";
-  // else
-  //   cout << " Message" << result << " sent ";
 
   return NULL;
 }
 
 void *networkThread(void *arg)
 {
-  //int listen_port = 8080;
   WSADATA wsa;
   SOCKET master, new_socket, client_socket[30], s;
   struct sockaddr_in server, address;
@@ -180,60 +156,47 @@ void *networkThread(void *arg)
   {
     client_socket[i] = 0;
   }
-
-  printf("\nInitialising Winsock...");
+  Trace("\nInitialising Winsock...");
   if (WSAStartup(MAKEWORD(2, 2), &wsa) != 0)
   {
     printf("Failed. Error Code : %d", WSAGetLastError());
     exit(EXIT_FAILURE);
   }
-
-  printf("Initialised.\n");
-
+  Trace("Initialised.\n");
   //Create a socket
   if ((master = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP)) == INVALID_SOCKET)
   {
     printf("Could not create socket : %d", WSAGetLastError());
     exit(EXIT_FAILURE);
   }
-
-  printf("Socket created.\n");
-  //char *ip = "172.21.148.45";
-
+  Trace("Socket created.\n");
   server.sin_addr.s_addr = INADDR_ANY;
   server.sin_family = AF_INET;
   server.sin_port = htons(PORT);
-
   if (bind(master, (struct sockaddr *)&server, sizeof(server)) == SOCKET_ERROR)
   {
     printf("Bind failed with error code : %d", WSAGetLastError());
   }
-  listen(master, 5);
+  listen(master, 100000);
   Trace("\n Waiting for incoming connections");
-    addrlen = sizeof(struct sockaddr_in);
-
+  addrlen = sizeof(struct sockaddr_in);
   while (true)
   {
     //Wait for connection to autoware client
-    std::cout << "Waiting access..." << std::endl;
     Trace("\nWaiting access");
-    client_sock = new int();
-    *client_sock = accept(master, (struct sockaddr *)&address, (int *)&addrlen);
-    if (*client_sock == -1)
+    client_socket_final = accept(master, (struct sockaddr *)&address, (int *)&addrlen);
+    if (client_socket_final == -1)
     {
-      perror("accept");
-       Trace("accept error");
+      Trace("accept error");
       break;
     }
-    Trace("\nNew connection , socket fd is %d , ip is : %s , port : %d \n", *client_sock, inet_ntoa(address.sin_addr), ntohs(address.sin_port));
-
+    Trace("\nNew connection , socket fd is %d , ip is : %s , port : %d \n", client_socket_final, inet_ntoa(address.sin_addr), ntohs(address.sin_port));
     //Connected to autoware client
-    Trace("Connected to Autowarexxx client");
+    Trace("Connected to Autoware client");
     int x;
     pthread_t th2;
-    if (pthread_create(&th2, NULL, testCalculate, client_sock) != 0)
+    if (pthread_create(&th2, NULL, testCalculate, &client_socket_final) != 0)
     {
-      perror("pthread_create");
       cout << "pthread create error";
       break;
     }
@@ -241,75 +204,37 @@ void *networkThread(void *arg)
     int ret = pthread_detach(th2);
     if (ret != 0)
     {
-      perror("pthread_detach");
+      Trace("pthread_detach error");
       break;
     }
-    cout << "end ..";
+    Trace("end ..");
   }
-
-error:
-  closesocket(s);
+  Trace("Close master socket");
+  closesocket(master);
+  WSACleanup();
   return NULL;
 }
-/* Start BUSMASTER generated function - OnTimer_timer_100ms_100 */
+/* Start BUSMASTER generated function - OnTimer_timer_100ms_100 *//////
 void OnTimer_timer_100ms_100()
 {
-  std::clock_t c_start = std::clock();  
-  float val = -1.3;
-  STCAN_MSG sMsgStruct;
-  memcpy(&sMsgStruct.data, &val, sizeof(float));
-
-  sMsgStruct.isExtended = true;
-  sMsgStruct.id = 0x100;
-  sMsgStruct.dlc = 12;
-  sMsgStruct.cluster = 1;
-  //sMsgStruct.data[0] = (float) (i );
-  // sMsgStruct.data[1] = (float) (i+ 0.1);
-  // sMsgStruct.data[2] = (float) (i+0.2);
-  //sMsgStruct.float_data[0] = 1.2f;
-  // sMsgStruct.test_data = 1.4f;
-  //Seems like CAN_Request is not defined here ..
- /* CAN_Request msg;
-  msg.sig1.physicalvalue(12.4);
-  SendMsg(msg);*/
-  i += 2;
-  //Trace("1.sending message from autoware receiver");
-  //SendMsg(sMsgStruct);
-  val = 88.904;
-  //memcpy(&sMsgStruct.data, &val, sizeof(float));
-  //SendMsg(sMsgStruct);
-
-  
-////
+  std::clock_t c_start = std::clock();
   if (j == 0)
   {
-    //Start a pthread to connect to Autoware
+    Trace("Socket error = %d",SOCKET_ERROR);
+    client_sock = new int();
     Trace("Spinning a thread ...");
     pthread_t th;
     if (pthread_create(&th, NULL, networkThread, NULL) != 0)
     {
-      //std::perror("pthread_create");
-      cout << "pthread create error";
-      //break;
+      Trace("pthread create error");
     }
     int ret = pthread_detach(th);
     if (ret != 0)
     {
-      cout << "detach error";
-      // perror("pthread_detach");f
-      // break;
+      Trace("detach error");
     }
   }
-  //Trace("Thread created");
   j++;
-  
-
-
-  // std::clock_t c_end = std::clock();
-  // std::cout << c_end - c_start;
-  // Trace("t2= %d",c_end - c_start);
-
-
 }
 
 
@@ -317,33 +242,29 @@ void OnTimer_timer_100ms_100()
 /* Start BUSMASTER generated function - OnMsgID_101 */
 void OnMsgID_101(STCAN_MSG RxMsg)
 {
-/* TODO */
-// Trace("Received result from bmnode1 = %f",(float)RxMsg.data[0]);
-// Trace("Received result from bmnode1 = %f",(float)RxMsg.data[1]);
-// Trace("Received result from bmnode1 = %f",(float)RxMsg.data[2]);
    recv_count++;
   float recv_val = 0.0;
   memcpy(&recv_val,RxMsg.data,sizeof(float));
- Trace("Received result from bmnode1 = %f",recv_val);
- if(recv_count == 1)
-  m_lat = recv_val;
- else if(recv_count == 2)
-  m_lon = recv_val;
- else if(recv_count == 3){
+  Trace("Received result from bmnode1 = %f",recv_val);
+  if(recv_count == 1)
+     m_lat = recv_val;
+  else if(recv_count == 2)
+    m_lon = recv_val;
+  else if(recv_count == 3){
     recv_count = 0;
     m_h = recv_val;
-    //Computed results all received -> Send back to Autoware
     Trace("Sending results back to Autoware");
     uint32_t data_converted[3];
     data_converted[0] = htonf(m_lat);
     data_converted[1] = htonf(m_lon);
     data_converted[2] = htonf(m_h);
-    Trace("client sock is %d",*client_sock);
-    
-    if( send(*client_sock, (char*)data_converted, sizeof(data_converted), 0) == SOCKET_ERROR) 
+    Trace("client sock is %d",client_socket_final);
+    if( send(client_socket_final, (char*)data_converted, sizeof(data_converted), 0) == SOCKET_ERROR) 
     {
         Trace("send failed");
     }
-    Trace("Data sent to AW");
+    else
+      Trace("Data sent to AW \n");
+    closesocket(client_socket_final);
  }
 }/* End BUSMASTER generated function - OnMsgID_101 */
