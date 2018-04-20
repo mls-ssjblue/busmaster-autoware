@@ -72,19 +72,14 @@ float ntohf(uint32_t p)
 }
 void *testCalculate(void *arg)
 {
-  
   cout << "in test calculate";
   Trace("in test calculate ");
   int sock = *((int *) arg);
   //Trace("sock = %d",sock);
-  //Trace("client_socket_final = %d",client_socket_final);
    float recv_array[3];
   int i = 0;
-  //Receive array of arguments one by one over TCP socket
   long recv_data[3];
   int recv_size;
-  uint32_t arr_size = 0;
-  int bufLen = 50;
   //Trace("\n Calling recv to receive data ");
   int iResult = recv(sock, (char*)recv_data, sizeof(recv_data), 0);
   if (iResult > 0)
@@ -106,13 +101,12 @@ void *testCalculate(void *arg)
 
   Trace("\nReceived data is %d %d %d ",recv_data[0],recv_data[1],recv_data[2]);
   Trace("\nDeserialized data is %f %f %f", recv_array[0], recv_array[1], recv_array[2]);
-  std::clock_t c_start = std::clock();
   STCAN_MSG sMsgStruct;
   sMsgStruct.id = 0x102;
-  sMsgStruct.dlc = 12;
+  sMsgStruct.dlc = 8;
   sMsgStruct.cluster = 1;
   memcpy(sMsgStruct.data, &recv_array[0], sizeof(float));
-  Trace("1.1 sending first val to bmnode1");
+  Trace("1.1 sending first val to bmnode1:");
   SendMsg(sMsgStruct);
   memcpy(sMsgStruct.data, &recv_array[1], sizeof(float));
   Trace("1.2 sending second val to bmnode1");
@@ -216,6 +210,7 @@ void OnTimer_timer_100ms_100()
 /* Start BUSMASTER generated function - OnMsgID_101 */
 void OnMsgID_101(STCAN_MSG RxMsg)
 {
+  Trace("In bm_server OnMsgID_101");
    recv_count++;
   float recv_val = 0.0;
   memcpy(&recv_val, &RxMsg.data,sizeof(float));
