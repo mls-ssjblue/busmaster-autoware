@@ -18,132 +18,18 @@
     <Window_Position>
       <Visibility>SHOWNORMAL</Visibility>
       <WindowPlacement>HIDE</WindowPlacement>
-      <Top>124</Top>
-      <Left>109</Left>
-      <Bottom>584</Bottom>
-      <Right>1433</Right>
+      <Top>529</Top>
+      <Left>0</Left>
+      <Bottom>706</Bottom>
+      <Right>1273</Right>
     </Window_Position>
   </Global_Configuration>
   <Module_Configuration>
     <CAN_Database_Files/>
-    <Bus_Statistics>
-      <CAN_Statistics>
-        <COLUMN>
-          <ID>Parameter</ID>
-          <Order>1</Order>
-          <Width>200</Width>
-          <IsVisible>1</IsVisible>
-        </COLUMN>
-        <COLUMN>
-          <ID>Channel 1</ID>
-          <Order>2</Order>
-          <Width>90</Width>
-          <IsVisible>1</IsVisible>
-        </COLUMN>
-        <COLUMN>
-          <ID>Channel 2</ID>
-          <Order>3</Order>
-          <Width>90</Width>
-          <IsVisible>1</IsVisible>
-        </COLUMN>
-        <COLUMN>
-          <ID>Channel 3</ID>
-          <Order>4</Order>
-          <Width>90</Width>
-          <IsVisible>1</IsVisible>
-        </COLUMN>
-        <COLUMN>
-          <ID>Channel 4</ID>
-          <Order>5</Order>
-          <Width>90</Width>
-          <IsVisible>1</IsVisible>
-        </COLUMN>
-        <COLUMN>
-          <ID>Channel 5</ID>
-          <Order>6</Order>
-          <Width>90</Width>
-          <IsVisible>1</IsVisible>
-        </COLUMN>
-        <COLUMN>
-          <ID>Channel 6</ID>
-          <Order>7</Order>
-          <Width>90</Width>
-          <IsVisible>1</IsVisible>
-        </COLUMN>
-        <COLUMN>
-          <ID>Channel 7</ID>
-          <Order>8</Order>
-          <Width>90</Width>
-          <IsVisible>1</IsVisible>
-        </COLUMN>
-        <COLUMN>
-          <ID>Channel 8</ID>
-          <Order>9</Order>
-          <Width>90</Width>
-          <IsVisible>1</IsVisible>
-        </COLUMN>
-        <COLUMN>
-          <ID>Channel 9</ID>
-          <Order>10</Order>
-          <Width>90</Width>
-          <IsVisible>1</IsVisible>
-        </COLUMN>
-        <COLUMN>
-          <ID>Channel 10</ID>
-          <Order>11</Order>
-          <Width>90</Width>
-          <IsVisible>1</IsVisible>
-        </COLUMN>
-        <COLUMN>
-          <ID>Channel 11</ID>
-          <Order>12</Order>
-          <Width>90</Width>
-          <IsVisible>1</IsVisible>
-        </COLUMN>
-        <COLUMN>
-          <ID>Channel 12</ID>
-          <Order>13</Order>
-          <Width>90</Width>
-          <IsVisible>1</IsVisible>
-        </COLUMN>
-        <COLUMN>
-          <ID>Channel 13</ID>
-          <Order>14</Order>
-          <Width>90</Width>
-          <IsVisible>1</IsVisible>
-        </COLUMN>
-        <COLUMN>
-          <ID>Channel 14</ID>
-          <Order>15</Order>
-          <Width>90</Width>
-          <IsVisible>1</IsVisible>
-        </COLUMN>
-        <COLUMN>
-          <ID>Channel 15</ID>
-          <Order>16</Order>
-          <Width>90</Width>
-          <IsVisible>1</IsVisible>
-        </COLUMN>
-        <COLUMN>
-          <ID>Channel 16</ID>
-          <Order>17</Order>
-          <Width>90</Width>
-          <IsVisible>1</IsVisible>
-        </COLUMN>
-      </CAN_Statistics>
-      <Window_Position>
-        <Visibility>SHOWNORMAL</Visibility>
-        <WindowPlacement>RESTORETOMAXIMIZED</WindowPlacement>
-        <Top>159</Top>
-        <Left>1379</Left>
-        <Bottom>823</Bottom>
-        <Right>1801</Right>
-      </Window_Position>
-    </Bus_Statistics>
     <J1939_Database_Files/>
     <CAN_DIL_Section>
       <DriverName>Simulation</DriverName>
-      <ControllerMode>Unknown</ControllerMode>
+      <ControllerMode>Bus Off</ControllerMode>
       <ControllerSettings>
         <Channel>
           <BaudRate>500</BaudRate>
@@ -1054,42 +940,6 @@
         <Bottom>651</Bottom>
         <Right>1624</Right>
       </Window_Position>
-      <Node>
-        <Name>bm_dummy1</Name>
-        <Is_Enabled>TRUE</Is_Enabled>
-        <File_Type>C_CPP_FILE</File_Type>
-        <File_Path>bm_dummy1.cpp</File_Path>
-      </Node>
-      <Node>
-        <Name>bm_server</Name>
-        <Is_Enabled>TRUE</Is_Enabled>
-        <File_Type>C_CPP_FILE</File_Type>
-        <File_Path>bm_server.cpp</File_Path>
-      </Node>
-      <Node>
-        <Name>bm_node1</Name>
-        <Is_Enabled>TRUE</Is_Enabled>
-        <File_Type>C_CPP_FILE</File_Type>
-        <File_Path>bmnode1.cpp</File_Path>
-      </Node>
-      <Node>
-        <Name>bm_dummy2</Name>
-        <Is_Enabled>TRUE</Is_Enabled>
-        <File_Type>C_CPP_FILE</File_Type>
-        <File_Path>bm_dummy2.cpp</File_Path>
-      </Node>
-      <Node>
-        <Name>bm_dummy3</Name>
-        <Is_Enabled>FALSE</Is_Enabled>
-        <File_Type>C_CPP_FILE</File_Type>
-        <File_Path>bm_dummy3.cpp</File_Path>
-      </Node>
-      <Node>
-        <Name>bm_dummy4</Name>
-        <Is_Enabled>FALSE</Is_Enabled>
-        <File_Type>C_CPP_FILE</File_Type>
-        <File_Path>bm_dummy4.cpp</File_Path>
-      </Node>
     </CAN_Simulated_Systems>
     <J1939_Simulated_Systems>
       <Window_Position>
@@ -1158,9 +1008,9 @@
         <ID>Data Byte(s)</ID>
         <Order>9</Order>
         <IsVisible>1</IsVisible>
-        <Width>735</Width>
+        <Width>734</Width>
       </COLUMN>
-      <IsHex>1</IsHex>
+      <IsHex>0</IsHex>
       <IsAppend>0</IsAppend>
       <IsInterpret>0</IsInterpret>
       <Time_Mode>SYSTEM</Time_Mode>
@@ -1169,8 +1019,8 @@
         <WindowPlacement>SETMINPOSITION</WindowPlacement>
         <Top>0</Top>
         <Left>0</Left>
-        <Bottom>460</Bottom>
-        <Right>1324</Right>
+        <Bottom>450</Bottom>
+        <Right>1342</Right>
       </Window_Position>
       <Interpretation_Window_Position>
         <Visibility>SHOWNORMAL</Visibility>
@@ -1258,9 +1108,9 @@
         <ID>Data Byte(s)</ID>
         <Order>13</Order>
         <IsVisible>1</IsVisible>
-        <Width>414</Width>
+        <Width>429</Width>
       </COLUMN>
-      <IsHex>1</IsHex>
+      <IsHex>0</IsHex>
       <IsAppend>0</IsAppend>
       <IsInterpret>0</IsInterpret>
       <Time_Mode>SYSTEM</Time_Mode>
@@ -1269,8 +1119,8 @@
         <WindowPlacement>SETMINPOSITION</WindowPlacement>
         <Top>0</Top>
         <Left>0</Left>
-        <Bottom>421</Bottom>
-        <Right>1308</Right>
+        <Bottom>450</Bottom>
+        <Right>1342</Right>
       </Window_Position>
       <Interpretation_Window_Position>
         <Visibility>SHOWNORMAL</Visibility>
@@ -1343,9 +1193,9 @@
         <ID>Checksum</ID>
         <Order>10</Order>
         <IsVisible>1</IsVisible>
-        <Width>428</Width>
+        <Width>443</Width>
       </COLUMN>
-      <IsHex>1</IsHex>
+      <IsHex>0</IsHex>
       <IsAppend>0</IsAppend>
       <IsInterpret>0</IsInterpret>
       <Time_Mode>SYSTEM</Time_Mode>
@@ -1354,8 +1204,8 @@
         <WindowPlacement>SETMINPOSITION</WindowPlacement>
         <Top>0</Top>
         <Left>0</Left>
-        <Bottom>421</Bottom>
-        <Right>1308</Right>
+        <Bottom>450</Bottom>
+        <Right>1342</Right>
       </Window_Position>
       <Interpretation_Window_Position>
         <Visibility>SHOWNORMAL</Visibility>
@@ -1370,25 +1220,12 @@
       <Window_Position>
         <Visibility>SHOWNORMAL</Visibility>
         <WindowPlacement>SETMINPOSITION</WindowPlacement>
-        <Top>-13</Top>
-        <Left>246</Left>
-        <Bottom>642</Bottom>
-        <Right>1106</Right>
+        <Top>1</Top>
+        <Left>4</Left>
+        <Bottom>661</Bottom>
+        <Right>864</Right>
       </Window_Position>
-      <Message_List>
-        <Message>
-          <Channel>1</Channel>
-          <Message_ID>10</Message_ID>
-          <IsExtended>FALSE</IsExtended>
-          <IsRtr>FALSE</IsRtr>
-          <DLC>8</DLC>
-          <DataBytes>0,0,0,0,0,0,0,0</DataBytes>
-          <Repetion>1</Repetion>
-          <Repetition_Enabled>FALSE</Repetition_Enabled>
-          <Key_Value>a</Key_Value>
-          <Key_Enabled>TRUE</Key_Enabled>
-        </Message>
-      </Message_List>
+      <Message_List/>
     </CAN_Tx_Window>
     <CAN_Wave_Form_Genarator>
       <Default_Sampling_Period>125</Default_Sampling_Period>
