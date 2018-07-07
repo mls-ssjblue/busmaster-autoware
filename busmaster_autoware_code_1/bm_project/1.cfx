@@ -18,10 +18,10 @@
     <Window_Position>
       <Visibility>SHOWNORMAL</Visibility>
       <WindowPlacement>HIDE</WindowPlacement>
-      <Top>124</Top>
-      <Left>109</Left>
-      <Bottom>584</Bottom>
-      <Right>1433</Right>
+      <Top>0</Top>
+      <Left>0</Left>
+      <Bottom>593</Bottom>
+      <Right>1248</Right>
     </Window_Position>
   </Global_Configuration>
   <Module_Configuration>
@@ -134,10 +134,10 @@
       <Window_Position>
         <Visibility>SHOWNORMAL</Visibility>
         <WindowPlacement>RESTORETOMAXIMIZED</WindowPlacement>
-        <Top>159</Top>
-        <Left>1379</Left>
-        <Bottom>823</Bottom>
-        <Right>1801</Right>
+        <Top>230</Top>
+        <Left>1120</Left>
+        <Bottom>894</Bottom>
+        <Right>1542</Right>
       </Window_Position>
     </Bus_Statistics>
     <J1939_Database_Files/>
@@ -1049,46 +1049,52 @@
       <Window_Position>
         <Visibility>SHOWNORMAL</Visibility>
         <WindowPlacement>RESTORETOMAXIMIZED</WindowPlacement>
-        <Top>195</Top>
-        <Left>297</Left>
-        <Bottom>651</Bottom>
-        <Right>1624</Right>
+        <Top>38</Top>
+        <Left>467</Left>
+        <Bottom>631</Bottom>
+        <Right>1715</Right>
       </Window_Position>
-      <Node>
-        <Name>bm_dummy1</Name>
-        <Is_Enabled>TRUE</Is_Enabled>
-        <File_Type>C_CPP_FILE</File_Type>
-        <File_Path>bm_dummy1.cpp</File_Path>
-      </Node>
       <Node>
         <Name>bm_server</Name>
         <Is_Enabled>TRUE</Is_Enabled>
         <File_Type>C_CPP_FILE</File_Type>
-        <File_Path>bm_server.cpp</File_Path>
+        <File_Path>..\bm_server.cpp</File_Path>
       </Node>
       <Node>
-        <Name>bm_node1</Name>
+        <Name>bmnode1</Name>
         <Is_Enabled>TRUE</Is_Enabled>
         <File_Type>C_CPP_FILE</File_Type>
-        <File_Path>bmnode1.cpp</File_Path>
+        <File_Path>..\bmnode1.cpp</File_Path>
       </Node>
       <Node>
-        <Name>bm_dummy2</Name>
-        <Is_Enabled>TRUE</Is_Enabled>
+        <Name>bmdummy1</Name>
+        <Is_Enabled>FALSE</Is_Enabled>
         <File_Type>C_CPP_FILE</File_Type>
-        <File_Path>bm_dummy2.cpp</File_Path>
+        <File_Path>..\bm_dummy1.cpp</File_Path>
+      </Node>
+      <Node>
+        <Name>bmdummy2</Name>
+        <Is_Enabled>FALSE</Is_Enabled>
+        <File_Type>C_CPP_FILE</File_Type>
+        <File_Path>..\bm_dummy2.cpp</File_Path>
       </Node>
       <Node>
         <Name>bm_dummy3</Name>
-        <Is_Enabled>FALSE</Is_Enabled>
+        <Is_Enabled>TRUE</Is_Enabled>
         <File_Type>C_CPP_FILE</File_Type>
-        <File_Path>bm_dummy3.cpp</File_Path>
+        <File_Path>..\bm_dummy3.cpp</File_Path>
       </Node>
       <Node>
         <Name>bm_dummy4</Name>
+        <Is_Enabled>TRUE</Is_Enabled>
+        <File_Type>C_CPP_FILE</File_Type>
+        <File_Path>..\bm_dummy4.cpp</File_Path>
+      </Node>
+      <Node>
+        <Name>bm_dummy5</Name>
         <Is_Enabled>FALSE</Is_Enabled>
         <File_Type>C_CPP_FILE</File_Type>
-        <File_Path>bm_dummy4.cpp</File_Path>
+        <File_Path>..\bm_dummy5.cpp</File_Path>
       </Node>
     </CAN_Simulated_Systems>
     <J1939_Simulated_Systems>
@@ -1158,7 +1164,7 @@
         <ID>Data Byte(s)</ID>
         <Order>9</Order>
         <IsVisible>1</IsVisible>
-        <Width>735</Width>
+        <Width>659</Width>
       </COLUMN>
       <IsHex>1</IsHex>
       <IsAppend>0</IsAppend>
@@ -1167,18 +1173,18 @@
       <Window_Position>
         <Visibility>SHOWNORMAL</Visibility>
         <WindowPlacement>SETMINPOSITION</WindowPlacement>
-        <Top>0</Top>
-        <Left>0</Left>
-        <Bottom>460</Bottom>
-        <Right>1324</Right>
+        <Top>78</Top>
+        <Left>78</Left>
+        <Bottom>671</Bottom>
+        <Right>1326</Right>
       </Window_Position>
       <Interpretation_Window_Position>
         <Visibility>SHOWNORMAL</Visibility>
         <WindowPlacement>RESTORETOMAXIMIZED</WindowPlacement>
-        <Top>182</Top>
-        <Left>-1587</Left>
-        <Bottom>460</Bottom>
-        <Right>-1238</Right>
+        <Top>63</Top>
+        <Left>16</Left>
+        <Bottom>341</Bottom>
+        <Right>365</Right>
       </Interpretation_Window_Position>
     </CAN_Message_Window>
     <J1939_Message_Window>
@@ -1275,10 +1281,10 @@
       <Interpretation_Window_Position>
         <Visibility>SHOWNORMAL</Visibility>
         <WindowPlacement>RESTORETOMAXIMIZED</WindowPlacement>
-        <Top>182</Top>
-        <Left>-1587</Left>
-        <Bottom>460</Bottom>
-        <Right>-1238</Right>
+        <Top>63</Top>
+        <Left>16</Left>
+        <Bottom>341</Bottom>
+        <Right>365</Right>
       </Interpretation_Window_Position>
     </J1939_Message_Window>
     <LIN_Message_Window>
@@ -1360,64 +1366,35 @@
       <Interpretation_Window_Position>
         <Visibility>SHOWNORMAL</Visibility>
         <WindowPlacement>RESTORETOMAXIMIZED</WindowPlacement>
-        <Top>182</Top>
-        <Left>-1587</Left>
-        <Bottom>460</Bottom>
-        <Right>-1238</Right>
+        <Top>63</Top>
+        <Left>16</Left>
+        <Bottom>341</Bottom>
+        <Right>365</Right>
       </Interpretation_Window_Position>
     </LIN_Message_Window>
     <CAN_Tx_Window>
       <Window_Position>
         <Visibility>SHOWNORMAL</Visibility>
         <WindowPlacement>SETMINPOSITION</WindowPlacement>
-        <Top>-13</Top>
-        <Left>246</Left>
-        <Bottom>642</Bottom>
-        <Right>1106</Right>
+        <Top>1</Top>
+        <Left>4</Left>
+        <Bottom>661</Bottom>
+        <Right>864</Right>
       </Window_Position>
-      <Message_List>
-        <Message>
-          <Channel>1</Channel>
-          <Message_ID>10</Message_ID>
-          <IsExtended>FALSE</IsExtended>
-          <IsRtr>FALSE</IsRtr>
-          <DLC>8</DLC>
-          <DataBytes>0,0,0,0,0,0,0,0</DataBytes>
-          <Repetion>1</Repetion>
-          <Repetition_Enabled>FALSE</Repetition_Enabled>
-          <Key_Value>a</Key_Value>
-          <Key_Enabled>TRUE</Key_Enabled>
-        </Message>
-      </Message_List>
+      <Message_List/>
     </CAN_Tx_Window>
     <CAN_Wave_Form_Genarator>
       <Default_Sampling_Period>125</Default_Sampling_Period>
       <SignalDefiner_AutoCorrect>1</SignalDefiner_AutoCorrect>
     </CAN_Wave_Form_Genarator>
-    <CAN_TS_Executor>
-      <Test_Suite_Name>Unnamed Test Suite</Test_Suite_Name>
-      <IsEnable>0</IsEnable>
-      <Window_Position>
-        <Visibility>HIDE</Visibility>
-        <WindowPlacement>SETMINPOSITION</WindowPlacement>
-        <Top>4</Top>
-        <Left>63</Left>
-        <Bottom>596</Bottom>
-        <Right>913</Right>
-      </Window_Position>
-      <Splitter_Window>
-        <CxIdeal>350</CxIdeal>
-        <CxMin>0</CxMin>
-      </Splitter_Window>
-    </CAN_TS_Executor>
     <LIN_Simulated_Systems>
       <Window_Position>
-        <Visibility>HIDE</Visibility>
+        <Visibility>SHOWNORMAL</Visibility>
         <WindowPlacement>RESTORETOMAXIMIZED</WindowPlacement>
-        <Top>0</Top>
-        <Left>0</Left>
-        <Bottom>0</Bottom>
-        <Right>0</Right>
+        <Top>54</Top>
+        <Left>400</Left>
+        <Bottom>464</Bottom>
+        <Right>664</Right>
       </Window_Position>
     </LIN_Simulated_Systems>
     <LIN_Cluster_Config>
