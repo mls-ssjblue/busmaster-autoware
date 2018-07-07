@@ -91,13 +91,13 @@ void *testCalculate(void *arg)
     //Trace("Connection closed\n");
   }
   else{
-    //Trace("recv failed:%d \n", WSAGetLastError());
+
   }
   for(int i =0;i<5;i++){
   recv_array[i] = ntohf(recv_data[i]);
-  //Trace("recv_array[i] = %f", recv_array[i]);
+  
   }
-  //Trace("test 72089 - %f",ntohf(72089));
+ 
 
   Trace("\nReceived data is %d ",recv_data[0]);
   Trace("\nDeserialized data is %f %f %f %f %f", recv_array[0], recv_array[1], recv_array[2], recv_array[3], recv_array[4]);
@@ -107,31 +107,7 @@ void *testCalculate(void *arg)
   sMsgStruct.dlc = 8;
 
   sMsgStruct.cluster = 1;
-  // sMsgStruct.data[0] = 1;
-  // SendMsg(sMsgStruct);
- /*   memcpy(sMsgStruct.data, &recv_array[0], sizeof(float));
-    Trace("1.1 sending first val to bmnode1:");
-    SendMsg(sMsgStruct);
-    free(sMsgStruct.data);
-    memcpy(sMsgStruct.data, &recv_array[1], sizeof(float));
-    Trace("1.2 sending second val to bmnode1");
-    SendMsg(sMsgStruct);
-    free(sMsgStruct.data);
-    memcpy(sMsgStruct.data, &recv_array[2], sizeof(float));
-    Trace("1.3 sending third val to bmnode1");
-    SendMsg(sMsgStruct);
-    free(sMsgStruct.data);
-    //free(sMsgStruct.data);
-    sMsgStruct.id = 0x103;
-    memcpy(sMsgStruct.data, &recv_array[3], sizeof(float));
-    Trace("1.4 sending fourth val to bmnode1");
-    SendMsg(sMsgStruct);
-    free(sMsgStruct.data);
-    sMsgStruct.id = 0x103; 
-    memcpy(sMsgStruct.data, &recv_array[4], sizeof(float));
-    Trace("1.5 sending fifth val to bmnode1");
-    SendMsg(sMsgStruct);
-    free(sMsgStruct.data);*/ 
+ 
     memcpy(sMsgStruct.data, &recv_array[0], sizeof(float));
     memcpy(sMsgStruct.data + 4 , &recv_array[1], sizeof(float));
     SendMsg(sMsgStruct);

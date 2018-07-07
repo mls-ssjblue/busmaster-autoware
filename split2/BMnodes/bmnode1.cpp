@@ -194,50 +194,7 @@ else if(k1 == 3){
   free(&rec_val1);
   compute(m_lat,m_lon,m_PLato,m_PLo,m_h);
 }
-  // memcpy(&rec_val_array[2], &RxMsg.data[8], sizeof(float));
-  // memcpy(&rec_val_array[3], &RxMsg.data[12], sizeof(float));
-  // memcpy(&rec_val_array[4], &RxMsg.data[16], sizeof(float));
-  //Trace("2.Received message %d =  %f",k1, rec_val);
- 
-  //Trace("2.computing with latd,lond,h = %f %f %f ",latd,lond,h);
-  //  if(k1==1){
-  //   m_lat = rec_val;
-  //   free(&rec_val);
-  // }
-  // else if(k1==2){
-  //   m_lon = rec_val;
-  //   free(&rec_val);
-  // }
-  // else if(k1==3){
-  //   k1=0;
-  //   m_PLato = rec_val;
-  //   free(&rec_val);
-  // }
-  
+
 
  
-}/* End BUSMASTER generated function - OnMsgID_102 */
-/* Start BUSMASTER generated function - OnMsgID_103 */
-// void OnMsgID_103(STCAN_MSG RxMsg)
-// {
-// /* TODO */
-//   k2++;
-//   float rec_val = 0.0;
-//   memcpy(&rec_val, RxMsg.data, sizeof(float));
-//   Trace("2.Received message %d =  %f",k2+3, rec_val);
-//   if(k2==1){
-//     m_PLo= rec_val;
-//     free(&rec_val);
-//   }
-//   else if(k2==2){
-//     m_h = rec_val;
-//     k2=0;
-//     free(&rec_val);
-//     //Trace("2.computing with m_lat,m_lon,m_Plato,m_PLo, m_h = %f %f %f %f %f",
-//     // m_lat,m_lon,m_PLato,m_PLo,m_h);
-//     compute(m_lat,m_lon,m_PLato,m_PLo,m_h);
-//     Trace("after compute");
-    
-//     Trace("after free");
-//   }
-// }/* End BUSMASTER generated function - OnMsgID_103 */
+}
