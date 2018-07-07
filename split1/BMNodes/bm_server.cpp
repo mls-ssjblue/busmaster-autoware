@@ -29,7 +29,7 @@ int thread_finish = 0;
 int ready_to_receive = 1;
 time_t t;
 /* End BUSMASTER global variable */
- int j = 0;
+static int j = 0;
 int recv_count = 0;
 int* client_sock;
 SOCKET client_socket_final;
@@ -43,7 +43,7 @@ GCC_EXTERN void GCC_EXPORT OnMsgID_101(STCAN_MSG RxMsg);
 
 /* Start BUSMASTER Function Wrapper Prototype  */
 /* End BUSMASTER Function Wrapper Prototype  */
-float m_x,m_y, m_z;
+float m_lat,m_lon, m_h;
 uint32_t htonf(float);
 float ntohf(uint32_t p);
 
@@ -76,9 +76,9 @@ void *testCalculate(void *arg)
   Trace("in test calculate ");
   int sock = *((int *) arg);
   //Trace("sock = %d",sock);
-   float recv_array[5];
+   float recv_array[3];
   int i = 0;
-  long recv_data[5];
+  long recv_data[3];
   int recv_size;
   //Trace("\n Calling recv to receive data ");
   int iResult = recv(sock, (char*)recv_data, sizeof(recv_data), 0);
@@ -93,61 +93,28 @@ void *testCalculate(void *arg)
   else{
     //Trace("recv failed:%d \n", WSAGetLastError());
   }
-  for(int i =0;i<5;i++){
+  for(int i =0;i<3;i++){
   recv_array[i] = ntohf(recv_data[i]);
-  //Trace("recv_array[i] = %f", recv_array[i]);
+  Trace("recv_array[i] = %f", recv_array[i]);
   }
-  //Trace("test 72089 - %f",ntohf(72089));
+  Trace("test 72089 - %f",ntohf(72089));
 
-  Trace("\nReceived data is %d ",recv_data[0]);
-  Trace("\nDeserialized data is %f %f %f %f %f", recv_array[0], recv_array[1], recv_array[2], recv_array[3], recv_array[4]);
+  Trace("\nReceived data is %d %d %d ",recv_data[0],recv_data[1],recv_data[2]);
+  Trace("\nDeserialized data is %f %f %f", recv_array[0], recv_array[1], recv_array[2]);
   STCAN_MSG sMsgStruct;
   sMsgStruct.id = 0x102;
-  // sMsgStruct.isCanfd = true;
   sMsgStruct.dlc = 8;
-
   sMsgStruct.cluster = 1;
-  // sMsgStruct.data[0] = 1;
-  // SendMsg(sMsgStruct);
- /*   memcpy(sMsgStruct.data, &recv_array[0], sizeof(float));
-    Trace("1.1 sending first val to bmnode1:");
-    SendMsg(sMsgStruct);
-    free(sMsgStruct.data);
-    memcpy(sMsgStruct.data, &recv_array[1], sizeof(float));
-    Trace("1.2 sending second val to bmnode1");
-    SendMsg(sMsgStruct);
-    free(sMsgStruct.data);
-    memcpy(sMsgStruct.data, &recv_array[2], sizeof(float));
-    Trace("1.3 sending third val to bmnode1");
-    SendMsg(sMsgStruct);
-    free(sMsgStruct.data);
-    //free(sMsgStruct.data);
-    sMsgStruct.id = 0x103;
-    memcpy(sMsgStruct.data, &recv_array[3], sizeof(float));
-    Trace("1.4 sending fourth val to bmnode1");
-    SendMsg(sMsgStruct);
-    free(sMsgStruct.data);
-    sMsgStruct.id = 0x103; 
-    memcpy(sMsgStruct.data, &recv_array[4], sizeof(float));
-    Trace("1.5 sending fifth val to bmnode1");
-    SendMsg(sMsgStruct);
-    free(sMsgStruct.data);*/ 
-    memcpy(sMsgStruct.data, &recv_array[0], sizeof(float));
-    memcpy(sMsgStruct.data + 4 , &recv_array[1], sizeof(float));
-    SendMsg(sMsgStruct);
-    free(sMsgStruct.data);
-    
-    memcpy(sMsgStruct.data , &recv_array[2], sizeof(float));
-    memcpy(sMsgStruct.data + 4 , &recv_array[3], sizeof(float));
-    SendMsg(sMsgStruct);
-    free(sMsgStruct.data);
-   
-
-    memcpy(sMsgStruct.data, &recv_array[4], sizeof(float));
-    SendMsg(sMsgStruct);
-    Trace("Sending all values to bmnode 1 in one can message");
-    free(sMsgStruct.data);
-
+  memcpy(sMsgStruct.data, &recv_array[0], sizeof(float));
+  Trace("1.1 sending first val to bmnode1:");
+  SendMsg(sMsgStruct);
+  memcpy(sMsgStruct.data, &recv_array[1], sizeof(float));
+  Trace("1.2 sending second val to bmnode1");
+  SendMsg(sMsgStruct);
+  memcpy(sMsgStruct.data, &recv_array[2], sizeof(float));
+  Trace("1.3 sending third val to bmnode1");
+  SendMsg(sMsgStruct);
+  free(sMsgStruct.data);
 }
 
 void *networkThread(void *arg)
@@ -246,20 +213,20 @@ void OnMsgID_101(STCAN_MSG RxMsg)
   Trace("In bm_server OnMsgID_101");
    recv_count++;
   float recv_val = 0.0;
-  memcpy(&recv_val, RxMsg.data,sizeof(float));
+  memcpy(&recv_val, &RxMsg.data,sizeof(float));
   Trace("1.Received result = %f",recv_val);
   if(recv_count == 1)
-     m_x = recv_val;
+     m_lat = recv_val;
   else if(recv_count == 2)
-    m_y = recv_val;
+    m_lon = recv_val;
   else if(recv_count == 3){
     recv_count = 0;
-    m_z = recv_val;
+    m_h = recv_val;
     Trace("1.Sending results back to Autoware");
     uint32_t data_converted[3];
-    data_converted[0] = htonf(m_x);
-    data_converted[1] = htonf(m_y);
-    data_converted[2] = htonf(m_z);
+    data_converted[0] = htonf(m_lat);
+    data_converted[1] = htonf(m_lon);
+    data_converted[2] = htonf(m_h);
     //Trace("client sock is %d",client_socket_final);
     if( send(client_socket_final, (char*)data_converted, sizeof(data_converted), 0) == SOCKET_ERROR) 
     {
